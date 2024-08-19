@@ -11,7 +11,7 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-DATABASE_PATH = os.getenv('DATABASE_PATH', 'yahoo_finance.db')
+DATABASE_PATH = os.getenv('DATABASE_PATH', '/opt/render/project/src/yahoo_finance.db')
 
 def check_or_create_table(table_name):
     print(f"Looking for database at {os.path.abspath(DATABASE_PATH)}")
