@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from flasgger import Swagger
 import sqlite3
 from datetime import datetime, timedelta
 import scraper
@@ -10,6 +11,7 @@ load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
+swagger = Swagger(app)
 
 DATABASE_PATH = os.getenv('DATABASE_PATH', 'yahoo_finance.db')
 
@@ -26,8 +28,6 @@ def check_or_create_table(table_name):
     if cursor.fetchone() is None:
         scraper.create_table(table_name)
     conn.close()
-
-
 
 def get_existing_date_range(table_name, start_date, end_date):
     conn = sqlite3.connect(DATABASE_PATH)
@@ -55,6 +55,61 @@ def query_data(table_name, start_date, end_date):
 
 @app.route('/api/forex_data', methods=['POST'])
 def get_forex_data():
+    """
+    Get historical forex data.
+    ---
+    parameters:
+      - name: from
+        in: query
+        type: string
+        required: true
+        description: The currency to convert from (e.g., USD).
+      - name: to
+        in: query
+        type: string
+        required: true
+        description: The currency to convert to (e.g., INR).
+      - name: period
+        in: query
+        type: string
+        required: true
+        description: The time period to retrieve data for (e.g., 1W, 1M, 3M, 6M, 1Y).
+    responses:
+      200:
+        description: A list of forex data points
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                description: The date of the data point.
+              open:
+                type: number
+                description: The opening value.
+              high:
+                type: number
+                description: The highest value.
+              low:
+                type: number
+                description: The lowest value.
+              close:
+                type: number
+                description: The closing value.
+              adj_close:
+                type: number
+                description: The adjusted closing value.
+              volume:
+                type: integer
+                description: The trading volume.
+      400:
+        description: Missing required parameters or invalid period.
+      404:
+        description: No data found for the given parameters.
+      500:
+        description: Failed to retrieve data.
+    """
     print("****************REQUEST RECEIVED****************")
     from_currency = request.args.get('from')
     to_currency = request.args.get('to')
