@@ -18,3 +18,4 @@ soupsieve==2.6
 urllib3==2.2.2
 werkzeug==3.0.3
 zipp==3.20.0
+flasgger
