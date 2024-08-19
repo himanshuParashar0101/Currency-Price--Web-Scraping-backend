@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 import os
 import sqlite3
-from backend.scraper import scrape_data, insert_data, create_table
+from scraper import scrape_data, insert_data, create_table
 
 def get_latest_date(table_name):
     conn = sqlite3.connect(os.getenv('DATABASE_PATH', 'yahoo_finance.db'))
