@@ -14,6 +14,10 @@ CORS(app)
 DATABASE_PATH = os.getenv('DATABASE_PATH', 'yahoo_finance.db')
 
 def check_or_create_table(table_name):
+    if not os.path.exists(DATABASE_PATH):
+        print(f"Database file not found at {DATABASE_PATH}.")
+        raise sqlite3.OperationalError("Database file not found.")
+    
     conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
     cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name}'")
