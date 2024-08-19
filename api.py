@@ -14,9 +14,10 @@ CORS(app)
 DATABASE_PATH = os.getenv('DATABASE_PATH', '/opt/render/project/src/yahoo_finance.db')
 
 def check_or_create_table(table_name):
-    print(f"Looking for database at {os.path.abspath(DATABASE_PATH)}")
-    if not os.path.exists(DATABASE_PATH):
-        print(f"Database file not found at {DATABASE_PATH}.")
+    abs_path = os.path.abspath(DATABASE_PATH)
+    print(f"Looking for database at {abs_path}")
+    if not os.path.exists(abs_path):
+        print(f"Database file not found at {abs_path}.")
         raise sqlite3.OperationalError("Database file not found.")
     
     conn = sqlite3.connect(DATABASE_PATH)
@@ -25,6 +26,7 @@ def check_or_create_table(table_name):
     if cursor.fetchone() is None:
         scraper.create_table(table_name)
     conn.close()
+
 
 
 def get_existing_date_range(table_name, start_date, end_date):
