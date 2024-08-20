@@ -28,7 +28,7 @@ Make sure that both the cron script and the API server are running to keep the d
 The backend API endpoints are designed to provide historic forex data to the frontend.
 ## API Documentation
 
-The API documentation is automatically generated using Swagger and can be accessed at the following URL:
+The API documentation is generated using Swagger and can be accessed at the following URL:
 
 [Swagger UI](https://vance-backend.onrender.com/apidocs/#/)
 
