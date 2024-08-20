@@ -1,8 +1,36 @@
+# Vanced Backend-Himanshu Parashar
+
+## Prerequisites
+-Python installed on your machine.
+-Required Python packages specified in `requirements.txt`.
+
+## Installation
+-Clone the Repository:
+
+    git clone https://github.com/himanshuParashar0101/vance-backend.git
+    cd vance-backend
+- Run the following command to install all the necessary dependencies:
+
+ `pip install -r requirements.txt`\
+ 
+ Running the Application\
+ Run the Cron Script:\
+ `cron_script.py`
+#### Before starting the API, run the cron script to keep the data synced with `Yahoo Finance`:
+### Start the API Server:
+
+After running the cron script, start the API server:
+`python api.py`\
+The backend will run on `http://localhost:5000`.
+
+Additional Notes
+Make sure that both the cron script and the API server are running to keep the data in sync and the backend functional.\
+The backend API endpoints are designed to provide historic forex data to the frontend.
 ## API Documentation
 
 The API documentation is automatically generated using Swagger and can be accessed at the following URL:
 
-[Swagger UI](https://<your-render-app-url>/apidocs/)
+[Swagger UI](https://vance-backend.onrender.com/apidocs/#/)
 
 ### Endpoint
 
